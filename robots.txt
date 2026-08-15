@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ritonotas.com.br/sitemap.xml

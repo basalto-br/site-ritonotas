@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Atos — livro de protocolos para cartório de notas</title>
+<meta name="description" content="Controle de prazos e andamento dos atos do seu cartório. Cada procuração e escritura com prazo calculado, responsável definido e próximo passo agendado.">
+
+<!-- ============================================================
+     PREENCHER ANTES DE PUBLICAR — procure por "TROCAR"
+     1. Número do WhatsApp (3 lugares)
+     2. E-mail de contato (1 lugar)
+     3. Captura de tela em img/tela-lista.png, sem dado real de cliente
+     4. Razão social e CNPJ no rodapé, ou apagar a linha
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#EFECE1;
+  --bg-alt:#E7E4D8;
+  --card:#FBFAF6;
+  --ficha:#FFFEFA;
+  --ink:#221F1A;
+  --ink-med:#3F3C34;
+  --ink-soft:#57544B;
+  --line:#D9D4C6;
+  --borda:#E0DCCE;
+  --divisor:#EFEBDD;
+  --carimbo:#8C2A20;
+  --carimbo-escuro:#71211A;
+  --font-display:'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body:'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --font-mono:'JetBrains Mono', Consolas, 'SFMono-Regular', monospace;
+  --r-card:10px;
+  --r-field:8px;
+  --wrap:44rem;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 1.5rem}
+
+h1,h2,h3{font-family:var(--font-display);line-height:1.25;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(1.85rem,5.2vw,2.9rem);font-weight:700}
+h2{font-size:clamp(1.4rem,3.6vw,1.95rem);font-weight:600}
+h3{font-size:1.1rem;font-weight:600}
+p{margin:0 0 1rem}
+
+a{color:var(--carimbo-escuro)}
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--carimbo);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+.etiqueta{
+  font-family:var(--font-mono);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  margin:0 0 .9rem;
+}
+
+/* ---------- pular para o conteúdo ---------- */
+.pular{
+  position:absolute;left:-9999px;top:0;
+  background:var(--ink);color:var(--bg);
+  padding:.75rem 1.25rem;z-index:100;border-radius:0 0 var(--r-field) 0;
+}
+.pular:focus{left:0}
+
+/* ---------- topo ---------- */
+.topo{border-bottom:1px solid var(--line);background:var(--bg)}
+.topo .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding-top:1.1rem;padding-bottom:1.1rem;
+}
+.marca{font-family:var(--font-display);font-weight:700;font-size:1.05rem;text-decoration:none;color:var(--ink)}
+.topo a.link-topo{
+  font-size:.92rem;color:var(--ink-soft);text-decoration:none;
+  border-bottom:1px solid var(--line);padding-bottom:2px;
+}
+.topo a.link-topo:hover{color:var(--ink);border-color:var(--ink-soft)}
+
+/* ---------- seções ---------- */
+section{padding:clamp(3rem,7vw,4.75rem) 0}
+section + section{border-top:1px solid var(--divisor)}
+.hero{padding-top:clamp(3rem,8vw,5rem)}
+.hero h1{max-width:20ch}
+.hero .sub{
+  font-size:1.14rem;color:var(--ink-med);
+  max-width:52ch;margin:1.25rem 0 2rem;
+}
+
+/* ---------- botões ---------- */
+.acoes{display:flex;flex-wrap:wrap;gap:.9rem 1.25rem;align-items:center}
+.botao{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:.8rem 1.5rem;
+  background:var(--carimbo);color:#FFFEFA;
+  font-family:var(--font-body);font-size:1rem;font-weight:600;
+  border:1px solid var(--carimbo-escuro);border-radius:var(--r-field);
+  text-decoration:none;cursor:pointer;
+  transition:background .15s ease;
+}
+.botao:hover{background:var(--carimbo-escuro)}
+.botao-sec{
+  display:inline-flex;align-items:center;min-height:48px;
+  color:var(--ink);font-weight:500;
+  border-bottom:1px solid var(--ink-soft);text-decoration:none;
+}
+.botao-sec:hover{border-color:var(--ink)}
+.nota-acao{font-size:.9rem;color:var(--ink-soft);margin:1rem 0 0}
+.coexiste{
+  margin:1.75rem 0 0;padding:1rem 1.15rem;
+  background:var(--card);border:1px solid var(--borda);
+  border-radius:var(--r-field);
+  font-size:.95rem;color:var(--ink-med);max-width:54ch;
+}
+.coexiste strong{color:var(--ink)}
+
+/* ---------- fichas ---------- */
+.fichas{display:grid;gap:1.25rem;margin-top:2rem}
+@media (min-width:52rem){.fichas{grid-template-columns:repeat(3,1fr)}}
+.ficha{
+  background:var(--ficha);border:1px solid var(--borda);
+  border-radius:var(--r-card);padding:1.5rem 1.4rem;
+}
+.ficha .num{
+  font-family:var(--font-mono);font-size:.8rem;
+  color:var(--carimbo);letter-spacing:.1em;
+}
+.ficha h3{margin:.5rem 0 .6rem}
+.ficha p{margin:0;font-size:.98rem;color:var(--ink-med)}
+
+/* ---------- lista de recursos ---------- */
+.recursos{list-style:none;padding:0;margin:2rem 0 0;border-top:1px solid var(--line)}
+.recursos li{
+  padding:1.15rem 0 1.15rem 0;
+  border-bottom:1px solid var(--line);
+}
+.recursos strong{display:block;font-weight:600;margin-bottom:.2rem}
+.recursos span{color:var(--ink-med);font-size:.98rem}
+
+/* ---------- imagem de tela ---------- */
+figure{margin:2.25rem 0 0}
+.moldura{
+  background:var(--card);border:1px solid var(--borda);
+  border-radius:var(--r-card);padding:.6rem;
+}
+.moldura img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--divisor)}
+figcaption{font-size:.85rem;color:var(--ink-soft);margin-top:.7rem;font-family:var(--font-mono);letter-spacing:.04em}
+
+/* ---------- bloco dados ---------- */
+.destaque{
+  background:var(--card);border:1px solid var(--borda);
+  border-left:4px solid var(--carimbo);
+  border-radius:var(--r-card);padding:1.75rem 1.6rem;margin-top:1.75rem;
+}
+.destaque p:last-child{margin-bottom:0}
+
+/* ---------- autor ---------- */
+.autor{display:grid;gap:1.75rem;align-items:start;margin-top:2rem}
+@media (min-width:44rem){.autor{grid-template-columns:150px 1fr}}
+.autor img{
+  width:150px;height:150px;object-fit:cover;
+  border-radius:var(--r-card);border:1px solid var(--borda);background:var(--card);
+}
+.autor p:last-child{margin-bottom:0}
+
+/* ---------- carimbo ---------- */
+.selo{
+  display:inline-block;transform:rotate(-3deg);
+  border:2px solid var(--carimbo);color:var(--carimbo);
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:.45rem .9rem;border-radius:4px;
+  margin-bottom:1.5rem;
+}
+
+/* ---------- fechamento ---------- */
+.fechamento{background:var(--bg-alt);border-top:1px solid var(--line)}
+.fechamento p.sub{font-size:1.08rem;color:var(--ink-med);max-width:48ch;margin:1rem 0 2rem}
+
+/* ---------- rodapé ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:2.25rem 0 3rem;
+  font-size:.9rem;color:var(--ink-soft);
+}
+footer p{margin:0 0 .5rem}
+footer a{color:var(--ink-soft)}
+footer .legal{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.03em}
+</style>
+</head>
+<body>
+
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="wrap">
+    <a class="marca" href="#conteudo">Controle de Atos</a>
+    <!-- TROCAR: número do WhatsApp -->
+    <a class="link-topo" href="https://wa.me/5527000000000">Falar comigo</a>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="etiqueta">Para cartório de notas</p>
+      <h1>O cliente liga perguntando da procuração dele. Quanto tempo você leva para responder?</h1>
+      <p class="sub">
+        Controle de Atos é um livro de protocolos para cartório de notas. Cada ato com prazo
+        calculado, responsável definido e próximo passo agendado — numa tela só.
+      </p>
+      <div class="acoes">
+        <a class="botao" href="https://fabricio-lv.github.io/controle-atos-cartorio/">
+          Abrir a ferramenta agora
+        </a>
+        <!-- TROCAR: número do WhatsApp -->
+        <a class="botao-sec" href="https://wa.me/5527000000000">
+          Ou fale comigo sobre usar no seu cartório
+        </a>
+      </div>
+      <p class="nota-acao">Grátis, sem instalar e sem cadastro. Abre direto no navegador.</p>
+
+      <p class="coexiste">
+        <strong>Funciona ao lado do sistema do seu cartório.</strong>
+        Não substitui lavratura de atos, emissão de selo, cartão de firma nem
+        qualquer obrigação oficial da serventia. Controla o andamento do trabalho —
+        que é onde hoje entram a planilha e o caderno.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PROBLEMA ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="etiqueta">O problema</p>
+      <h2>Três perguntas que todo cartório responde mal</h2>
+
+      <div class="fichas">
+        <div class="ficha">
+          <p class="num">01</p>
+          <h3>Onde está o prazo?</h3>
+          <p>Planilha, caderno, papel na mesa, memória de quem está atendendo. Quando alguém falta, o prazo falta junto.</p>
+        </div>
+        <div class="ficha">
+          <p class="num">02</p>
+          <h3>Quem cobra quem quando um ato atrasa?</h3>
+          <p>Sem responsável registrado, a cobrança vira conversa de corredor. E quando o ato atrasa de verdade, ninguém sabe em que etapa parou.</p>
+        </div>
+        <div class="ficha">
+          <p class="num">03</p>
+          <h3>O que acontece quando o cliente liga?</h3>
+          <p>Alguém levanta da mesa, procura a pasta, pergunta para dois colegas e liga de volta depois. Toda vez.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== O QUE FAZ ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="etiqueta">A ferramenta</p>
+      <h2>Feito para a rotina de procurações e escrituras</h2>
+
+      <ul class="recursos">
+        <li>
+          <strong>Prazo calculado sozinho</strong>
+          <span>A partir da data em que a documentação ficou completa, descontando fins de semana e feriados.</span>
+        </li>
+        <li>
+          <strong>Lista e quadro</strong>
+          <span>A mesma informação em tabela ou em colunas de andamento, conforme a preferência de quem está olhando.</span>
+        </li>
+        <li>
+          <strong>Checklist de documentos por tipo de ato</strong>
+          <span>Separado entre procurações e escrituras, com a exigência própria de cada tipo.</span>
+        </li>
+        <li>
+          <strong>Agenda de pendências</strong>
+          <span>O próximo passo de cada protocolo, mostrando o que venceu, o que é hoje e o que vence nos próximos dias.</span>
+        </li>
+        <li>
+          <strong>Histórico por protocolo</strong>
+          <span>Mudança de status, observação e pendência na mesma linha do tempo, com quem fez e quando.</span>
+        </li>
+        <li>
+          <strong>Lixeira em vez de exclusão</strong>
+          <span>Nada sai do sistema por engano.</span>
+        </li>
+      </ul>
+
+      <figure>
+        <div class="moldura">
+          <!-- TROCAR: exportar a captura para img/tela-lista.png, sem nenhum dado real de cliente -->
+          <img src="img/tela-lista.png"
+               alt="Tela principal do Controle de Atos: lista de protocolos com tipo de ato, responsável, situação e prazo restante, e uma faixa de agenda no topo.">
+        </div>
+        <figcaption>Tela real da ferramenta</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== DADOS ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="etiqueta">Sigilo</p>
+      <h2>Os dados não saem do seu computador</h2>
+
+      <div class="destaque">
+        <p>
+          Na versão atual, nada é enviado para nenhum servidor. Os protocolos ficam numa pasta
+          que você escolhe, com backup automático duas vezes ao dia, ou no armazenamento do
+          próprio navegador, com exportação manual disponível a qualquer momento.
+        </p>
+        <p>
+          <strong>O código é público, os dados são seus.</strong> Você pode conferir por conta
+          própria o que a ferramenta faz — e o que ela não faz.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ESTÁGIO ===================== -->
+  <section>
+    <div class="wrap">
+      <p class="selo">Piloto aberto</p>
+      <h2>Onde o projeto está hoje</h2>
+      <p>
+        A versão que você pode abrir acima funciona e está em uso. A versão em nuvem — com login,
+        vários usuários e visão do titular — está em construção.
+      </p>
+      <p>
+        Estou procurando <strong>dois ou três cartórios</strong> para acompanhar essa construção
+        de perto, em uso gratuito, ajudando a decidir o que entra e o que fica de fora.
+      </p>
+      <p>Se o seu cartório se interessa, eu gostaria de conversar.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FECHAMENTO ===================== -->
+  <section class="fechamento">
+    <div class="wrap">
+      <h2>Vamos conversar</h2>
+      <p class="sub">
+        Uma conversa de vinte minutos, presencial ou por telefone. Quero entender como o seu
+        cartório controla prazo hoje — e mostrar o que já está pronto.
+      </p>
+      <div class="acoes">
+        <!-- TROCAR: número do WhatsApp -->
+        <a class="botao" href="https://wa.me/5527000000000">Chamar no WhatsApp</a>
+        <!-- TROCAR: e-mail -->
+        <a class="botao-sec" href="mailto:contato@exemplo.com.br">Ou escreva para contato@exemplo.com.br</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Controle de Atos</strong> — livro de protocolos para cartório de notas</p>
+    <!-- TROCAR: razão social e CNPJ quando existirem. Enquanto não existirem, deixe esta linha fora. -->
+    <p class="legal">Razão Social Ltda · CNPJ 00.000.000/0001-00</p>
+    <p>
+      <a href="politica-de-privacidade.html">Política de Privacidade</a> ·
+      <a href="termos-de-uso.html">Termos de Uso</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

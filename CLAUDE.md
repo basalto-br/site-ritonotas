@@ -90,16 +90,17 @@ Cloudflare Pages conectado a este repositório.
 
 ## Pendências antes de publicar
 
-Procure por `TROCAR` no `index.html`. **Faltam duas:**
+Procure por `TROCAR` no `index.html`. **Falta uma:**
 
-1. **Número do WhatsApp** — 3 ocorrências, todas com o número de exemplo
-   `5527000000000`.
-2. **`img/tela-lista.png`** — a captura não existe, e o `index.html` já a referencia:
+1. **`img/tela-lista.png`** — a captura não existe, e o `index.html` já a referencia:
    hoje a imagem da dobra principal **quebra**. Exportar da ferramenta **sem nenhum
-   dado real de cliente**; ver `img/LEIA-ME.md`.
+   dado real de cliente**; ver `img/LEIA-ME.md`. É a última coisa entre a página e
+   estar publicável.
 
 **Resolvidas — não refaça:**
 
+- **Número do WhatsApp** → `wa.me/5527981567653`, nas 3 ocorrências. Só no `href`; o
+  número não aparece como texto visível em lugar nenhum da página.
 - **E-mail de contato** → `contato@ritonotas.com.br`, no `href` do `mailto` e no texto
   visível.
 - **Razão social e CNPJ** → a linha do rodapé foi **removida**. Volta quando o CNPJ

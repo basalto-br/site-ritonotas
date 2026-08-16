@@ -29,13 +29,13 @@ Cada push em `main` publica. Branches diferentes geram preview automático.
 
 ## Antes de publicar
 
-- [ ] Substituir o número do WhatsApp — 3 `TROCAR` no `index.html`
 - [ ] Colocar `img/tela-lista.png` — **hoje a referência existe e a imagem quebra**
 - [ ] Conferir a captura de tela — nenhum dado real de cliente
 - [ ] Abrir no celular, que é onde a maioria dos tabeliães vai ver
 - [ ] Testar o link do WhatsApp no próprio celular
 - [ ] Publicar a política de privacidade e repor os links no rodapé
 - [ ] Conversa de autorização pendente — ver CLAUDE.md
+- [x] ~~Número do WhatsApp~~ — nas 3 ocorrências
 - [x] ~~E-mail de contato~~ — `contato@ritonotas.com.br`
 - [x] ~~Razão social e CNPJ~~ — linha removida até o CNPJ existir
 

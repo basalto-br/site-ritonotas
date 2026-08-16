@@ -90,12 +90,26 @@ Cloudflare Pages conectado a este repositório.
 
 ## Pendências antes de publicar
 
-Procure por `TROCAR` no `index.html`:
+Procure por `TROCAR` no `index.html`. **Faltam duas:**
 
-1. Número do WhatsApp (3 ocorrências)
-2. E-mail de contato (1 ocorrência)
-3. `img/tela-lista.png` — captura de tela **sem nenhum dado real de cliente**
-4. Razão social e CNPJ no rodapé — ou apague a linha até existirem
+1. **Número do WhatsApp** — 3 ocorrências, todas com o número de exemplo
+   `5527000000000`.
+2. **`img/tela-lista.png`** — a captura não existe, e o `index.html` já a referencia:
+   hoje a imagem da dobra principal **quebra**. Exportar da ferramenta **sem nenhum
+   dado real de cliente**; ver `img/LEIA-ME.md`.
+
+**Resolvidas — não refaça:**
+
+- **E-mail de contato** → `contato@ritonotas.com.br`, no `href` do `mailto` e no texto
+  visível.
+- **Razão social e CNPJ** → a linha do rodapé foi **removida**. Volta quando o CNPJ
+  existir; o comentário no lugar dela diz isso.
+- **Links de Política de Privacidade e Termos de Uso** → **removidos do rodapé**.
+  Apontavam para `politica-de-privacidade.html` e `termos-de-uso.html`, que não existem
+  no repositório — em produção seriam dois 404 em toda página. Repor junto com as
+  páginas.
+- **A palavra "livro"** saiu do `<title>`, do subtítulo da dobra e do rodapé, pela regra
+  de terminologia em "O que não fazer".
 
 ## Sem seção de autoria — e é deliberado
 

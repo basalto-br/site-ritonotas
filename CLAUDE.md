@@ -90,14 +90,17 @@ Cloudflare Pages conectado a este repositório.
 
 ## Pendências antes de publicar
 
-Procure por `TROCAR` no `index.html`. **Falta uma:**
-
-1. **`img/tela-lista.png`** — a captura não existe, e o `index.html` já a referencia:
-   hoje a imagem da dobra principal **quebra**. Exportar da ferramenta **sem nenhum
-   dado real de cliente**; ver `img/LEIA-ME.md`. É a última coisa entre a página e
-   estar publicável.
+**Nenhuma.** As quatro foram resolvidas — ver abaixo. O que falta para o site ir ao ar
+não é mais conteúdo, é infraestrutura: conectar a Cloudflare Pages a este repositório.
 
 **Resolvidas — não refaça:**
+
+- **`img/tela-lista.png`** → gerada a partir da própria ferramenta, em 1400×1395, com
+  quatro protocolos **fictícios** (Marina Duarte Campos, Otávio Nunes Prado, Helena
+  Castro Vasques, Marcenaria Andrade & Cia Ltda) mostrando três estados: no prazo, "com
+  o usuário" e certidão de ônus a vencer. Sem dado real de cliente, sem telefone e sem
+  e-mail. A faixa de "ambiente de teste" e o convite de conectar pasta foram suprimidos
+  na captura por serem artefatos do ambiente, não do produto.
 
 - **Número do WhatsApp** → `wa.me/5527981567653`, nas 3 ocorrências. Só no `href`; o
   número não aparece como texto visível em lugar nenhum da página.

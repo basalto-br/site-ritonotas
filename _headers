@@ -49,10 +49,19 @@
 # CSP. Ou seja, o preview não consegue provar que a analítica continua funcionando
 # — isso só se confere em ritonotas.com.br, depois do merge.
 
-# As fontes carregam o hash do conteúdo no nome (fontes/inter.260c81a4.woff2), então
-# trocar uma fonte troca a URL. Isso permite cache longo sem risco de servir versão
-# velha — e resolve uma armadilha real: enquanto o nome era fixo, publicar uma fonte
-# nova deixava a antiga presa no cache de borda da Cloudflare, servida a quem pedisse
-# a URL sem query. Levou uma medição para descobrir.
-/fontes/*
-  Cache-Control: public, max-age=31536000, immutable
+# Cache das fontes: DELIBERADAMENTE no padrão do site (max-age=0, must-revalidate).
+#
+# Houve aqui um `/fontes/* Cache-Control: max-age=31536000, immutable`, e ele causou um
+# defeito em produção em 18/08/2026. A regra casa por CAMINHO, não por conteúdo: durante
+# a janela em que o HTML novo já estava no ar e o arquivo da fonte ainda não, o endereço
+# da fonte caiu no fallback HTML do Pages — e a resposta errada foi guardada com validade
+# de um ano e proibição de revalidar. Navegador nessa condição não se recupera sozinho,
+# porque `immutable` significa exatamente "não pergunte de novo".
+#
+# O ganho era pequeno: são 200 KB, num site de baixo tráfego, onde a revalidação custa um
+# 304. Não vale o risco. O nome com hash do conteúdo continua — ele resolve a staleness no
+# cache de borda, que era o problema real, e permite religar cache um dia, de propósito e
+# com o entendimento acima.
+#
+# A pasta v2/ existe para furar os caches já envenenados: como `immutable` impede a
+# revalidação, a única saída para quem carregou na janela ruim é mudar a URL.

@@ -3,8 +3,14 @@
 As três famílias são redistribuídas aqui em `.woff2`, subconjunto latino, em versão
 variável — um arquivo por família cobre toda a faixa de peso.
 
-O nome de cada arquivo carrega um hash do conteúdo: trocar a fonte troca a URL, o que
-permite cache longo sem risco de servir versão velha.
+O nome de cada arquivo carrega um hash do conteúdo: trocar a fonte troca a URL. Isso
+resolve a staleness no cache de borda da Cloudflare, que era o problema original.
+
+Os arquivos ficam em `v2/`. A pasta versionada existe porque uma primeira publicação, em
+18/08/2026, combinou esses nomes com `Cache-Control: immutable` de um ano — e uma janela
+de propagação fez o endereço da fonte cair no fallback HTML do Pages, que ficou guardado
+como se fosse a fonte. Trocar a URL foi a única saída para quem pegou aquela janela. O
+cabeçalho de cache longo foi removido; ver `_headers`.
 
 | Arquivo | Família | Autoria | Licença | Origem |
 |---|---|---|---|---|

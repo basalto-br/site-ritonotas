@@ -3,11 +3,14 @@
 As três famílias são redistribuídas aqui em `.woff2`, subconjunto latino, em versão
 variável — um arquivo por família cobre toda a faixa de peso.
 
+O nome de cada arquivo carrega um hash do conteúdo: trocar a fonte troca a URL, o que
+permite cache longo sem risco de servir versão velha.
+
 | Arquivo | Família | Autoria | Licença | Origem |
 |---|---|---|---|---|
-| `inter.woff2` | Inter | Rasmus Andersson | SIL Open Font License 1.1 | extraída do `controle-atos.html` |
-| `jetbrains-mono.woff2` | JetBrains Mono | JetBrains | SIL Open Font License 1.1 | extraída do `controle-atos.html` |
-| `source-serif-4.woff2` | Source Serif 4 | Frank Grießhammer / Adobe | SIL Open Font License 1.1 | Google Fonts, subconjunto latino |
+| `inter.<hash>.woff2` | Inter | Rasmus Andersson | SIL Open Font License 1.1 | extraída do `controle-atos.html` |
+| `jetbrains-mono.<hash>.woff2` | JetBrains Mono | JetBrains | SIL Open Font License 1.1 | extraída do `controle-atos.html` |
+| `source-serif-4.<hash>.woff2` | Source Serif 4 | Frank Grießhammer / Adobe | SIL Open Font License 1.1 | Google Fonts, subconjunto latino |
 
 A SIL OFL 1.1 permite uso, estudo, modificação e redistribuição, inclusive comercial,
 desde que os arquivos de fonte não sejam vendidos isoladamente e que o aviso de licença

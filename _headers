@@ -48,3 +48,11 @@
 # próprio. A URL de preview é *.pages.dev e NUNCA recebe beacon, com ou sem esta
 # CSP. Ou seja, o preview não consegue provar que a analítica continua funcionando
 # — isso só se confere em ritonotas.com.br, depois do merge.
+
+# As fontes carregam o hash do conteúdo no nome (fontes/inter.260c81a4.woff2), então
+# trocar uma fonte troca a URL. Isso permite cache longo sem risco de servir versão
+# velha — e resolve uma armadilha real: enquanto o nome era fixo, publicar uma fonte
+# nova deixava a antiga presa no cache de borda da Cloudflare, servida a quem pedisse
+# a URL sem query. Levou uma medição para descobrir.
+/fontes/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -7,16 +7,43 @@
 <meta name="description" content="Controle de prazos e andamento dos atos do seu cartório. Cada procuração e escritura com prazo calculado, responsável definido e próximo passo agendado.">
 
 <!-- ============================================================
-     PREENCHER ANTES DE PUBLICAR — procure por "TROCAR"
-     1. Número do WhatsApp (3 lugares)
-     2. E-mail de contato (1 lugar)
-     3. Captura de tela em img/tela-lista.png, sem dado real de cliente
-     4. Razão social e CNPJ no rodapé, ou apagar a linha
+     PENDÊNCIAS DESTA PÁGINA — procure por "TROCAR"
+
+     1. Razão social e CNPJ no rodapé, ou apagar a linha.
+        Fora de propósito até a empresa existir.
+
+     2. Política de Privacidade e Termos de Uso.
+        Os links saíram do rodapé porque apontavam para
+        politica-de-privacidade.html e termos-de-uso.html, que não
+        existem — eram dois 404 em toda página. Repor JUNTO com as
+        páginas, nunca antes. O plano de 6 meses agenda os dois
+        documentos para o mês 4, amarrados ao contrato de tratamento
+        de dados; não é atraso.
+
+     Já resolvidos, não procure: WhatsApp e e-mail reais nos três
+     lugares, e a captura img/tela-lista.png com protocolos fictícios.
      ============================================================ -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Fontes servidas pelo próprio domínio. Antes vinham do Google, o que entregava o IP
+   de cada visitante a um terceiro — incoerente numa página que vende privacidade.
+   Todas são variáveis: um arquivo por família cobre a faixa de peso com renderização
+   real, sem negrito sintético. Licença em fontes/LICENCA.md.
+
+   Inter e JetBrains Mono foram extraídas do próprio controle-atos.html, que já as
+   embutia em base64 — medido que rendem pixel a pixel igual ao que o Google servia.
+
+   Source Serif 4 NÃO pôde vir dali. A cópia do app é variável só de peso, e a que o
+   Google entrega tem também o eixo óptico (opsz), que deixa o texto mais estreito nos
+   tamanhos grandes. Trocar uma pela outra fazia dois subtítulos quebrarem em duas
+   linhas. Esta é a oficial, subconjunto latino — que cobre o português inteiro, porque
+   os acentuados cabem em U+0000-00FF. O eixo óptico é aplicado sozinho pelo navegador;
+   não mexer com font-variation-settings. */
+
+@font-face{font-family:'Inter';src:url(fontes/inter.260c81a4.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Source Serif 4';src:url(fontes/source-serif-4.e9192c2f.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url(fontes/jetbrains-mono.b636a65d.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+</style>
 
 <style>
 :root{

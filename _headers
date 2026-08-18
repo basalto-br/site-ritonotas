@@ -1,5 +1,58 @@
+# Cabeçalhos de segurança — lidos pela Cloudflare Pages na publicação.
+#
+# Diferente do _headers do app, aqui a analítica é DESEJADA. A Cloudflare injeta
+# sozinha o beacon de RUM em toda página HTML da zona, e na landing isso é para
+# ficar — é como se mede a visita. A CSP abaixo foi escrita para permitir esse
+# script e nada mais.
+
 /*
-  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Notas sobre cada escolha que não é óbvia:
+#
+# script-src static.cloudflareinsights.com
+#   O beacon de analytics da Cloudflare, injetado pelo proxy. A página não tem
+#   script próprio nenhum — o 'self' fica por precaução, para o dia em que tiver.
+#
+# connect-src cloudflareinsights.com e 'self'
+#   Para onde o beacon envia a medição. O 'self' cobre a variante que a Cloudflare
+#   serve em /cdn-cgi/rum, no próprio domínio.
+#
+# style-src 'unsafe-inline'
+#   O CSS da página inteira vive em blocos <style> no HTML, por desenho: a landing
+#   não faz nenhuma requisição além da imagem e das fontes.
+#
+# font-src 'self'
+#   Desde 18/08/2026 as fontes são servidas daqui, de fontes/. Antes vinham do
+#   Google, o que entregava o IP de cada visitante a um terceiro — incoerente numa
+#   página cujo argumento central é que o dado não sai do lugar.
+#
+# img-src 'self'
+#   Só img/tela-lista.png. Sem data: porque não há nenhuma imagem embutida.
+#
+# X-Frame-Options: DENY e frame-ancestors 'none'
+#   Era SAMEORIGIN. A página não se embute em lugar nenhum, então DENY é o valor
+#   correto, e o frame-ancestors é o equivalente moderno para quem ignora o outro.
+#
+# Strict-Transport-Security NÃO está aqui, de propósito.
+#   Mesma razão do app: HSTS é difícil de desfazer, porque o navegador guarda a
+#   política e recusa HTTP até o max-age expirar. Ligar depois, com max-age curto,
+#   em SSL/TLS → Edge Certificates.
+#
+# ATENÇÃO ao testar: a injeção do beacon só acontece em host da zona do domínio
+# próprio. A URL de preview é *.pages.dev e NUNCA recebe beacon, com ou sem esta
+# CSP. Ou seja, o preview não consegue provar que a analítica continua funcionando
+# — isso só se confere em ritonotas.com.br, depois do merge.
+
+# As fontes carregam o hash do conteúdo no nome (fontes/inter.260c81a4.woff2), então
+# trocar uma fonte troca a URL. Isso permite cache longo sem risco de servir versão
+# velha — e resolve uma armadilha real: enquanto o nome era fixo, publicar uma fonte
+# nova deixava a antiga presa no cache de borda da Cloudflare, servida a quem pedisse
+# a URL sem query. Levou uma medição para descobrir.
+/fontes/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -49,7 +49,16 @@
 # CSP. Ou seja, o preview não consegue provar que a analítica continua funcionando
 # — isso só se confere em ritonotas.com.br, depois do merge.
 
-# Cache das fontes: DELIBERADAMENTE no padrão do site (max-age=0, must-revalidate).
+# Cache das fontes: DELIBERADAMENTE sem regra própria, no padrão do site.
+#
+# O padrão NÃO é o mesmo nos dois ambientes, e a diferença já enganou uma leitura deste
+# arquivo. Medido em 18/08/2026, depois da publicação:
+#
+#   produção (ritonotas.com.br)  ->  public, max-age=14400, must-revalidate
+#   preview  (*.pages.dev)       ->  public, max-age=0,     must-revalidate
+#
+# As 4 horas da produção vêm do Browser Cache TTL da zona na Cloudflare, que só se aplica
+# ao domínio próprio. Medir no preview e supor que a produção faz igual dá o número errado.
 #
 # Houve aqui um `/fontes/* Cache-Control: max-age=31536000, immutable`, e ele causou um
 # defeito em produção em 18/08/2026. A regra casa por CAMINHO, não por conteúdo: durante
